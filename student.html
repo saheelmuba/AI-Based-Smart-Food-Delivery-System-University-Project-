@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICST AI Smart Food — Professional Campus Dining Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="student.css">
+</head>
+<body>
+
+<div class="toast-container" id="toastContainer"></div>
+<div class="modal-overlay" id="orderModal"><div class="modal"><div class="modal-head"><div class="modal-title">Order Confirmed</div><button class="modal-close" onclick="closeModal()">✕</button></div><div id="modalContent"></div><button class="btn btn-primary" style="width:100%;margin-top:16px;" onclick="closeModal()">Track Order</button></div></div>
+
+<div id="screen-login" class="screen active">
+  <div class="login-wrap">
+    <div class="login-brand"><div class="logo-big">ICST AI Smart Food</div><div class="logo-sub">Professional AI-Powered Campus Dining · Sri Lanka</div></div>
+    <div class="login-card">
+      <div class="tabs-row"><button class="tab-pill active" onclick="switchAuthTab('login',this)">Sign In</button><button class="tab-pill" onclick="switchAuthTab('signup',this)">Register</button></div>
+      <div id="auth-login"><div class="login-title">Welcome back</div><div class="login-hint">Sign in with your @icst.edu.lk account</div><div class="field"><label>Email</label><input id="loginEmail" type="email" placeholder="student@icst.edu.lk" value="student@icst.edu.lk"></div><div class="field"><label>Password</label><input id="loginPass" type="password" placeholder="••••••••" value="ai2024"></div><button class="btn btn-primary" style="width:100%;margin-top:4px;" onclick="doLogin()">Sign In</button><div class="divider">or</div><button class="btn btn-outline" style="width:100%;" onclick="demoLogin()">Demo Access</button><div class="error-txt" id="loginErr"></div></div>
+      <div id="auth-signup" style="display:none;"><div class="login-title">Create account</div><div class="login-hint">Join the ICST Smart Food community</div><div class="field"><label>Full Name</label><input id="signName" type="text" placeholder="Your full name"></div><div class="field"><label>Email</label><input id="signEmail" type="email" placeholder="student@icst.edu.lk"></div><div class="field"><label>Password</label><input id="signPass" type="password" placeholder="Min 6 characters"></div><div class="field"><label>Food Preference</label><select id="signPref"><option value="all">No Preference</option><option value="veg">Vegetarian</option><option value="nonveg">Non-Vegetarian</option></select></div><button class="btn btn-primary" style="width:100%;margin-top:4px;" onclick="doSignup()">Create Account</button><div class="error-txt" id="signErr"></div></div>
+    </div>
+    <div style="text-align:center;margin-top:16px;font-size:.7rem;color:var(--text3);"><i class="fas fa-lock"></i> Secure · AI-powered · 53+ Menu Items</div>
+  </div>
+</div>
+
+<div id="screen-app" class="screen">
+  <nav><div class="nav-logo" onclick="showPage('home')">ICST AI Food</div><div class="nav-links"><button class="nav-link active" id="nav-home" onclick="showPage('home')"><i class="fas fa-home"></i> Home</button><button class="nav-link" id="nav-order" onclick="showPage('order')"><i class="fas fa-shopping-bag"></i> Order</button><button class="nav-link" id="nav-aifeatures" onclick="showPage('aifeatures')"><i class="fas fa-microchip"></i> AI Features</button><button class="nav-link" id="nav-upload" onclick="showPage('upload')"><i class="fas fa-upload"></i> Upload</button><button class="nav-link" id="nav-profile" onclick="showPage('profile')"><i class="fas fa-user"></i> Profile</button></div><div class="nav-right"><div class="cart-btn" onclick="showPage('order')"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cartBadge">0</span></div><div class="avatar" id="userAvatar" onclick="showPage('profile')">U</div><button class="btn btn-ghost btn-sm" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i></button></div></nav>
+
+  <div id="page-home" class="page active">
+    <div class="hero-section"><div class="hero-greeting" id="heroGreeting">Good morning, Student</div><h1 class="hero-title">Campus Dining, Powered by <span>Artificial Intelligence</span></h1><p class="hero-sub">Fraud detection · Dynamic pricing · Smart queue · AI recommendations</p><div class="hero-actions"><button class="btn btn-primary" onclick="showPage('order')"><i class="fas fa-utensils"></i> Order Now</button><button class="btn btn-outline" onclick="showPage('aifeatures')"><i class="fas fa-microchip"></i> AI Features</button></div></div>
+    <div class="stats-row"><div class="stat-card"><div class="stat-icon orange"><i class="fas fa-chart-line"></i></div><div><div class="stat-val" id="statDemand">+42%</div><div class="stat-lbl">Demand Forecast</div></div></div><div class="stat-card"><div class="stat-icon green"><i class="fas fa-clock"></i></div><div><div class="stat-val" id="statQueue">~6 min</div><div class="stat-lbl">Smart Queue</div></div></div><div class="stat-card"><div class="stat-icon blue"><i class="fas fa-star"></i></div><div><div class="stat-val" id="statScore">96%</div><div class="stat-lbl">AI Rec Score</div></div></div><div class="stat-card"><div class="stat-icon purple"><i class="fas fa-recycle"></i></div><div><div class="stat-val">−40%</div><div class="stat-lbl">Waste Reduction</div></div></div></div>
+    <div class="section"><div class="ai-reco-panel"><div class="ai-reco-badge"><i class="fas fa-robot"></i> AI Recommendation Engine</div><div class="ai-reco-text" id="homeRecoText">Loading personalized recommendations...</div><div class="ai-reco-items" id="homeRecoChips"></div></div><div class="ad-banner"><div><div class="ad-banner-label"><i class="fas fa-bullhorn"></i> AI-Powered Offer</div><div class="ad-banner-title">🔥 Today's Peak Hour Special</div><div class="ad-banner-sub">AI detected surplus: Chicken Briyani · 15% off before 2PM</div></div><div class="ad-timer" id="adTimer">⏱ 01:24:38</div></div><div class="section-head"><div class="section-title"><i class="fas fa-robot"></i> AI Smart Menu</div><div class="tag tag-green">Live AI Ranked</div></div><div class="filter-bar"><button class="filter-btn active" data-cat="All">All</button><button class="filter-btn" data-cat="Breakfast">Breakfast</button><button class="filter-btn" data-cat="Lunch">Lunch</button><button class="filter-btn" data-cat="Dinner">Dinner</button><button class="filter-btn" data-cat="Snack">Snacks</button><button class="filter-btn" data-cat="Beverage">Beverages</button><button class="filter-btn" data-cat="Dessert">Desserts</button></div><div class="food-grid" id="homeMenuGrid"></div></div><div class="section"><div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;border-left:3px solid var(--accent3);"><div style="font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:8px;"><i class="fas fa-leaf"></i> Waste Reduction AI <span class="tag tag-green">Live</span></div><div style="font-size:.75rem;color:var(--text2);">Today surplus: Rice & Chicken Curry (~22 portions). AI suggests 15% discount after 7PM, reducing waste by 40%.</div></div></div><footer>© 2026 ICST AI Smart Food · LSTM Forecasting · Collaborative Filtering · Smart Queue</footer>
+  </div>
+
+  <div id="page-order" class="page">
+    <div class="order-layout"><div><div style="margin-bottom:20px;"><div class="section-title"><i class="fas fa-shopping-bag"></i> Place Your Order</div><div style="color:var(--text2);font-size:.8rem;">AI-ranked menu · Add items to your smart cart</div></div><div class="filter-bar"><button class="filter-btn active" data-cat="All">All</button><button class="filter-btn" data-cat="Breakfast">Breakfast</button><button class="filter-btn" data-cat="Lunch">Lunch</button><button class="filter-btn" data-cat="Dinner">Dinner</button><button class="filter-btn" data-cat="Snack">Snacks</button><button class="filter-btn" data-cat="Beverage">Beverages</button><button class="filter-btn" data-cat="Dessert">Desserts</button></div><div class="food-grid" id="orderMenuGrid"></div><div style="margin-top:32px;"><div class="section-title" style="margin-bottom:14px;"><i class="fas fa-history"></i> Order History</div><div id="orderHistoryList"><div style="color:var(--text3);font-size:.8rem;">No orders yet</div></div></div></div><div><div class="cart-panel"><h3><i class="fas fa-shopping-cart"></i> Smart Cart</h3><div class="cart-list" id="cartList"><div class="empty-cart"><i class="fas fa-shopping-basket"></i><br>Your cart is empty</div></div><div class="cart-total-row"><span>Total</span><span class="cart-total-val" id="cartTotal">Rs. 0</span></div><div style="background:var(--bg2);border-radius:10px;padding:10px;margin-top:10px;font-size:.75rem;color:var(--text2);"><i class="fas fa-clock"></i> AI Queue ETA: <strong id="cartQueueEta" style="color:var(--accent)">~6 min</strong></div><div style="margin-top:10px;background:rgba(16,185,138,.05);border:1px solid rgba(16,185,138,.1);border-radius:10px;padding:10px;font-size:.75rem;color:var(--green);" id="cartReco"><i class="fas fa-magic"></i> AI suggests adding Mango Juice</div><button class="btn btn-primary" style="width:100%;margin-top:14px;" onclick="placeOrder()"><i class="fas fa-brain"></i> Place Order</button></div><div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:16px;"><div style="font-weight:600;margin-bottom:12px;font-size:.85rem;"><i class="fas fa-map-marker-alt"></i> Delivery</div><div class="field"><select id="deliveryLocation"><option>Main Canteen - Ground Floor</option><option>Library Block - L2</option><option>Lab Block - Pickup</option></select></div><div class="field"><textarea id="orderNote" placeholder="Special instructions..." rows="2"></textarea></div></div></div></div>
+  </div>
+
+  <div id="page-aifeatures" class="page">
+    <div class="ai-features-layout">
+      <div class="section-title" style="margin-bottom:4px;"><i class="fas fa-microchip"></i> Advanced AI Features</div>
+      <div style="color:var(--text2);font-size:.8rem;">Next-generation AI capabilities powering your campus dining experience</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+        <span class="tag tag-orange"><i class="fas fa-shield-alt"></i> Fraud Detection</span>
+        <span class="tag tag-green"><i class="fas fa-chart-simple"></i> Dynamic Pricing</span>
+        <span class="tag tag-pink"><i class="fas fa-heartbeat"></i> BMI & Meal Planner</span>
+        <span class="tag tag-blue"><i class="fas fa-smile"></i> Mood & Mental Health</span>
+      </div>
+
+      <div class="ai-features-grid">
+        <!-- Voice Ordering - API Integration -->
+        <div class="ai-feature-card">
+          <div class="ai-feature-card-header"><div class="ai-feature-icon voice"><i class="fas fa-microphone-alt"></i></div><div><div class="ai-feature-title">Voice Ordering</div><div class="ai-feature-sub">Multilingual speech recognition</div></div></div>
+          <div style="padding:16px;text-align:center;">
+            <p style="color:var(--text2);font-size:.85rem;margin-bottom:12px;">Advanced voice ordering with cart management and order confirmation.</p>
+            <select id="voiceLangSelect" onchange="setVoiceLanguage(this.value)" class="btn btn-outline btn-sm" style="width:100%;margin-bottom:8px;">
+              <option value="en-US">🎤 English</option>
+              <option value="ta-IN">🎤 தமிழ் (Tamil)</option>
+              <option value="si-LK">🎤 සිංහල (Sinhala)</option>
+            </select>
+            <button onclick="startVoiceRecognitionEnhanced()" class="btn btn-primary" style="width:100%;"><i class="fas fa-microphone-alt"></i> Start Enhanced Voice</button>
+            <button onclick="startVoiceRecognition()" class="btn btn-outline btn-sm" style="width:100%;margin-top:6px;"><i class="fas fa-microphone"></i> Basic Voice Mode</button>
+            <div id="voiceStatus" style="font-size:.75rem;color:var(--text3);margin-top:8px;"></div>
+          </div>
+        </div>
+
+        <!-- Advanced Voice Order Parser -->
+        <div class="ai-feature-card">
+          <div class="ai-feature-card-header"><div class="ai-feature-icon voice"><i class="fas fa-brain"></i></div><div><div class="ai-feature-title">Advanced Voice Parser</div><div class="ai-feature-sub">JSON Order Parsing · Confidence Scoring</div></div></div>
+          <div style="padding:16px;">
+            <p style="color:var(--text2);font-size:.85rem;margin-bottom:12px;">Parse natural voice commands with special instructions, quantities, and confidence scores.</p>
+            <button onclick="parseVoiceOrder()" class="btn btn-primary" style="width:100%;margin-bottom:6px;"><i class="fas fa-wand-magic-sparkles"></i> Parse Voice Order</button>
+            <button onclick="startVoiceOrdering()" class="btn btn-outline btn-sm" style="width:100%;"><i class="fas fa-microphone-alt"></i> Activate Voice Mode</button>
+            <div style="margin-top:8px;font-size:.75rem;color:var(--text2);line-height:1.4;">
+              <strong>Features:</strong>
+              <ul style="margin:4px 0;padding-left:16px;">
+                <li>Multilingual: English, Tamil, Sinhala, Hindi</li>
+                <li>Special instructions: spicy, no onions, extra cheese</li>
+                <li>Quantity detection with regional number words</li>
+                <li>Confidence scoring (0-100%)</li>
+                <li>Noise filtering & auto-corrections</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Image Recognition - API Integration -->
+        <div class="ai-feature-card">
+          <div class="ai-feature-card-header"><div class="ai-feature-icon image"><i class="fas fa-camera"></i></div><div><div class="ai-feature-title">Food Image Recognition</div><div class="ai-feature-sub">TensorFlow · OpenCV · Nutrition Analysis</div></div></div>
+          <div style="padding:16px;text-align:center;">
+            <p style="color:var(--text2);font-size:.85rem;margin-bottom:12px;">Advanced image analysis with nutrition, freshness, and menu matching.</p>
+            <button onclick="startFoodRecognitionEnhanced()" class="btn btn-primary" style="width:100%;"><i class="fas fa-camera"></i> Start Enhanced Recognition</button>
+            <button onclick="startFoodAI()" class="btn btn-outline btn-sm" style="width:100%;margin-top:6px;"><i class="fas fa-image"></i> Basic Recognition</button>
+            <div id="foodAiStatus" style="font-size:.75rem;color:var(--text3);margin-top:8px;"></div>
+          </div>
+        </div>
+
+        <!-- Fraud Detection -->
+        <div class="ai-feature-card">
+          <div class="ai-feature-card-header"><div class="ai-feature-icon fraud"><i class="fas fa-shield-alt"></i></div><div><div class="ai-feature-title">Fraud Detection</div><div class="ai-feature-sub">Anomaly Detection</div></div></div>
+          <div class="fraud-monitor"><div style="display:flex;align-items:center;gap:16px;"><div class="fraud-score-ring"><svg viewBox="0 0 90 90" width="80" height="80"><circle class="ring-bg" cx="45" cy="45" r="40"/><circle class="ring-fill" id="fraudRingFill" cx="45" cy="45" r="40" stroke="var(--green)" stroke-dashoffset="25"/></svg><div class="fraud-score-text"><div class="fraud-score-num" id="fraudScoreNum" style="color:var(--green);">90%</div><div class="fraud-score-lbl">Trust</div></div></div><div><div class="fraud-alert-list" id="fraudAlertList"><div class="fraud-alert"><div class="fraud-dot safe"></div><div>Order #ORD001 — Verified</div></div><div class="fraud-alert"><div class="fraud-dot warn"></div><div>Order #ORD089 — Flagged</div></div></div></div></div></div>
+          <button class="btn btn-outline btn-sm" style="width:100%;margin-top:10px;" onclick="runFraudSimulation()"><i class="fas fa-scan"></i> Run Fraud Scan</button>
+        </div>
+        <!-- Dynamic Pricing -->
+        <div class="ai-feature-card">
+          <div class="ai-feature-card-header"><div class="ai-feature-icon pricing"><i class="fas fa-chart-line"></i></div><div><div class="ai-feature-title">Dynamic Pricing</div><div class="ai-feature-sub">Demand-based</div></div></div>
+          <div class="pricing-grid" id="dynamicPricingGrid"></div>
+          <button class="btn btn-outline btn-sm" style="width:100%;" onclick="refreshDynamicPricing()"><i class="fas fa-sync-alt"></i> Refresh Prices</button>
+        </div>
+        <!-- BMI Calculator -->
+        <div class="ai-feature-card">
+          <div class="ai-feature-card-header"><div class="ai-feature-icon bmi"><i class="fas fa-heartbeat"></i></div><div><div class="ai-feature-title">BMI Calculator & Meal Planner</div><div class="ai-feature-sub">BMI = weight(kg) / height(m)²</div></div></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div class="field"><input type="number" id="bmiHeight" placeholder="Height (cm)" value="170"></div><div class="field"><input type="number" id="bmiWeight" placeholder="Weight (kg)" value="65"></div></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;"><div class="field"><input type="number" id="bmiAge" placeholder="Age" value="22"></div><div class="field"><select id="activityLevel"><option value="1.2">Sedentary</option><option value="1.375">Lightly active</option><option value="1.55">Moderately active</option><option value="1.725">Very active</option></select></div></div>
+          <button class="btn btn-primary btn-sm" style="width:100%;" onclick="calculateBMIAndPlan()"><i class="fas fa-calculator"></i> Calculate & Get Plan</button>
+          <div id="bmiResult" style="display:none;"></div>
+        </div>
+        <!-- Mood Suggestions -->
+        <div class="ai-feature-card">
+          <div class="ai-feature-card-header"><div class="ai-feature-icon mood"><i class="fas fa-face-smile"></i></div><div><div class="ai-feature-title">Mood & Mental Health</div><div class="ai-feature-sub">Emotion Recognition · Sentiment Analysis</div></div></div>
+          <div class="mood-grid"><button class="mood-btn" onclick="analyzeMood('stressed')"><span class="mood-emoji">😫</span><span>Stressed</span></button><button class="mood-btn" onclick="analyzeMood('tired')"><span class="mood-emoji">😴</span><span>Tired</span></button><button class="mood-btn" onclick="analyzeMood('happy')"><span class="mood-emoji">😊</span><span>Happy</span></button><button class="mood-btn" onclick="analyzeMood('anxious')"><span class="mood-emoji">😰</span><span>Anxious</span></button><button class="mood-btn" onclick="analyzeMood('sad')"><span class="mood-emoji">😢</span><span>Sad</span></button><button class="mood-btn" onclick="analyzeMood('energetic')"><span class="mood-emoji">⚡</span><span>Energetic</span></button><button class="mood-btn" onclick="analyzeMood('focused')"><span class="mood-emoji">🧠</span><span>Focus</span></button><button class="mood-btn" onclick="analyzeMood('lonely')"><span class="mood-emoji">🥺</span><span>Lonely</span></button></div>
+          <div id="moodResult" style="display:none;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPLOAD PAGE - FULL FEATURES RESTORED -->
+  <div id="page-upload" class="page">
+    <div class="upload-layout">
+      <div class="section-title" style="margin-bottom:4px;"><i class="fas fa-upload"></i> Upload Data Files</div>
+      <div style="color:var(--text2);font-size:.8rem;margin-bottom:20px;">Upload PDF, PPT, Excel files for AI analysis and insights</div>
+      
+      <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+        <input type="file" id="fileInput" multiple accept=".pdf,.ppt,.pptx,.xls,.xlsx,.csv,.html,.txt" style="display:none" onchange="handleFileUpload(event)">
+        <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+        <div class="upload-title">Drop files here or click to browse</div>
+        <div class="upload-sub">Supports PDF, PPT, PPTX, XLS, XLSX, CSV, HTML, TXT · Max 50MB per file</div>
+        <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          <span class="tag tag-blue"><i class="fas fa-file-pdf"></i> PDF Reports</span>
+          <span class="tag tag-orange"><i class="fas fa-file-excel"></i> Excel Data</span>
+          <span class="tag tag-purple"><i class="fas fa-file-powerpoint"></i> PowerPoint</span>
+          <span class="tag tag-green"><i class="fas fa-file-csv"></i> CSV Files</span>
+        </div>
+      </div>
+      
+      <div class="uploaded-files" id="uploadedFilesList"></div>
+      
+      <div class="insights-panel" id="aiInsightsPanel" style="display:none;">
+        <div class="insights-title"><i class="fas fa-robot"></i> AI Analysis Results <span class="tag tag-green">Powered by AI</span></div>
+        <div id="aiInsightsList"></div>
+        <button class="btn btn-primary btn-sm" style="margin-top:16px;" onclick="applyDataToMenu()"><i class="fas fa-check"></i> Apply Data to Menu & Ads</button>
+      </div>
+      
+      <!-- Manual Data Entry -->
+      <div class="manual-entry-card">
+        <div class="manual-entry-title"><i class="fas fa-pen-alt"></i> Manual Data Entry <span class="tag tag-orange">AI Assisted</span></div>
+        <div class="field"><label>Menu Item Name</label><input id="manualName" type="text" placeholder="e.g. Special Chicken Kottu"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+          <div class="field"><label>Price (Rs.)</label><input id="manualPrice" type="number" placeholder="350"></div>
+          <div class="field"><label>Category</label><select id="manualCat"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option><option>Beverage</option><option>Dessert</option></select></div>
+          <div class="field"><label>Type</label><select id="manualType"><option value="true">Vegetarian</option><option value="false">Non-Veg</option></select></div>
+        </div>
+        <button class="btn btn-primary" onclick="addManualItem()"><i class="fas fa-plus"></i> Add to Menu via AI</button>
+      </div>
+      
+      <!-- AI Advertisement Generator -->
+      <div class="ad-generator-card">
+        <div class="manual-entry-title"><i class="fas fa-bullhorn"></i> AI Advertisement Generator <span class="tag tag-purple">AI Powered</span></div>
+        <div class="field"><label>What to Advertise</label><input id="adInput" type="text" placeholder="e.g. New Avocado Toast - healthy breakfast option"></div>
+        <button class="btn btn-outline" onclick="generateAd()"><i class="fas fa-magic"></i> Generate AI Ad Copy</button>
+        <div class="ad-output" id="adOutput"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="page-profile" class="page">
+    <div class="profile-layout"><div><div class="profile-card"><div class="profile-avatar" id="profileAvatar">U</div><div class="profile-name" id="profileName">Student User</div><div class="profile-email" id="profileEmail">student@icst.edu.lk</div><div class="tag tag-green" style="margin-top:8px;">Verified Student</div><div class="profile-stats"><div class="profile-stat"><div class="profile-stat-val" id="profileOrders">0</div><div class="profile-stat-lbl">Orders</div></div><div class="profile-stat"><div class="profile-stat-val" id="profileSpent">Rs.0</div><div class="profile-stat-lbl">Spent</div></div><div class="profile-stat"><div class="profile-stat-val" id="profileFav">—</div><div class="profile-stat-lbl">Favorite</div></div><div class="profile-stat"><div class="profile-stat-val" id="profileSaved">Rs.0</div><div class="profile-stat-lbl">Savings</div></div></div><button class="btn btn-outline btn-sm" style="width:100%;margin-top:12px;" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Sign Out</button></div><div style="margin-top:12px;"><div class="preferences-panel"><div class="pref-title">Settings</div><div class="pref-grid"><div class="pref-row"><span><i class="fas fa-leaf"></i> Vegetarian Mode</span><div class="toggle" id="vegToggle" onclick="togglePref(this)"></div></div><div class="pref-row"><span><i class="fas fa-bell"></i> Notifications</span><div class="toggle on" id="notifToggle" onclick="togglePref(this)"></div></div><div class="pref-row"><span><i class="fas fa-robot"></i> AI Recommendations</span><div class="toggle on" id="recoToggle" onclick="togglePref(this)"></div></div></div></div></div></div><div><div class="preferences-panel"><div class="pref-title">AI Taste Profile</div><div id="tasteProfile" style="font-size:.8rem;color:var(--text2);">Order more to build your profile</div></div><div style="margin-top:16px;"><div class="preferences-panel"><div class="pref-title">Recommended for You</div><div id="profileRecos"></div></div></div><div style="margin-top:16px;"><div class="preferences-panel"><div class="pref-title"><i class="fas fa-apple-alt"></i> AI Nutrition Advisor</div><div class="field"><input id="nutritionQ" placeholder="Ask about nutrition..."></div><button class="btn btn-outline btn-sm" onclick="askNutrition()">Ask AI</button><div id="nutritionAnswer" style="margin-top:12px;display:none;"></div></div></div><div style="margin-top:16px;"><div class="preferences-panel"><div class="pref-title"><i class="fas fa-dumbbell"></i> Personal Diet Assistant</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div class="field"><input id="userWeight" type="number" placeholder="Weight (kg)" value="70"></div><div class="field"><input id="calorieGoal" type="number" placeholder="Daily goal" value="2200"></div></div><div class="field"><select id="dietGoal"><option value="maintain">Maintain Weight</option><option value="lose">Lose Weight</option><option value="gain">Gain Muscle</option><option value="protein">High Protein</option></select></div><button class="btn btn-primary btn-sm" onclick="getSmartMealSuggestions()"><i class="fas fa-brain"></i> Suggest Meals</button><div id="dietSuggestionPanel" style="margin-top:12px;display:none;"></div></div></div></div></div>
+  </div>
+</div>
+
+<button class="chat-fab" id="chatFab" onclick="toggleChat()"><div class="pulse"></div><i class="fas fa-comment-dots"></i></button>
+<div class="chatbot-window" id="chatWindow"><div class="chat-header"><div class="chat-header-info"><div class="chat-bot-avatar"><i class="fas fa-robot"></i></div><div><div class="chat-bot-name">ICST Food AI</div><div class="chat-bot-status">Online</div></div></div><div class="chat-language-selector"><select id="chatLangSelect" onchange="setChatLanguage(this.value)"><option value="en-US">English</option><option value="ta-IN">Tamil</option><option value="si-LK">Sinhala</option><option value="hi-IN">Hindi</option><option value="es-ES">Spanish</option></select></div><button class="chat-close" onclick="toggleChat()"><i class="fas fa-times"></i></button></div><div class="chat-msgs" id="chatMsgs"><div class="msg bot">👋 Hi! I'm your AI Food Assistant. Ask me about menu items, nutrition, or recommendations!</div></div><div class="quick-replies"><span class="qr" onclick="sendQuickReply(this)">Best lunch</span><span class="qr" onclick="sendQuickReply(this)">High protein</span><span class="qr" onclick="sendQuickReply(this)">Veg options</span><span class="qr" onclick="sendQuickReply(this)">Queue time</span><span class="qr" onclick="askTraining()">Train AI</span></div><div class="chat-input-row"><input class="chat-input" id="chatInput" placeholder="Ask me anything..." onkeypress="if(event.key==='Enter')sendChat()"><button class="chat-send" onclick="sendChat()"><i class="fas fa-paper-plane"></i></button></div></div>
+
+<script src="student.js"></script>
+<!-- Repository file links for quick access -->
+<section style="padding:20px;background:#fff;border-top:1px solid var(--border);">
+  <div style="max-width:1000px;margin:0 auto;">
+    <h3 style="margin-bottom:8px;">Repository Files</h3>
+    <p style="color:var(--text2);font-size:.9rem;margin-bottom:12px;">Quick links to project files in this workspace.</p>
+    <ul style="columns:2;list-style:disc;column-gap:40px;padding-left:20px;">
+         </ul>
+  </div>
+</section>
+</body>
+</html>

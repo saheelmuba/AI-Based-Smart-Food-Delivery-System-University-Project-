@@ -1,0 +1,13 @@
+# Runtime / generated
+app_data.db
+uploads/*
+!uploads/.gitkeep
+__pycache__/
+*.pyc
+.env
+.venv/
+venv/
+
+# Editor
+.vscode/
+.DS_Store

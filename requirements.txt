@@ -1,0 +1,13 @@
+# ICST AI Food Ordering System — runtime dependencies for the web app (app.py)
+# werkzeug (password hashing) and itsdangerous (signed tokens) ship with Flask.
+Flask>=3.0
+Flask-CORS>=4.0
+
+# Optional: enables server-side image compression/resizing in /api/food-image.
+# The app works without it (stores the original instead).
+Pillow>=10.0
+
+# --- Optional research / ML modules (NOT required to run the web app) ---
+# The standalone scripts (training_pipeline.py, food_recognition_*.py, etc.)
+# need heavy extras. Install only if you work on those:
+#   pandas numpy scikit-learn joblib opencv-python torch torchvision tensorflow
