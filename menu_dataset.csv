@@ -1,0 +1,56 @@
+name,price,category,veg,emoji,protein,calories,ai_score,source,raw_price,id
+chicken Rotti,100,Breakfast,False,🍗,High Protein,520,76,canteen,100/-,1
+Vegitable Rotti,70,Breakfast,True,🍞,Vegetarian,520,77,canteen,70/-,2
+Barotta + Curry,100,Breakfast,,🍛,Balanced,520,83,canteen,"100/- ,200/-",3
+Noodles with curry,150,Breakfast,True,🍛,Vegetarian,520,82,canteen,"150/-, 200/-",4
+String Hoppers +Curry,150,Breakfast,True,🍛,Balanced,520,83,canteen,"150/-, 200/-",5
+Egg Rotti,100,Breakfast,False,🥚,High Protein,520,88,canteen,100/-,6
+Macroni,150,Breakfast,,🌅,Balanced,520,90,canteen,150/-,7
+Beef Rotti,100,Breakfast,False,🥩,High Protein,520,78,canteen,100/-,8
+Bread +Sambol,150,Breakfast,True,🍞,Vegetarian,520,74,canteen,150/-,9
+"Pittu With Curry +chicken , Beef",150,Breakfast,False,🍗,High Protein,520,77,canteen,"150/-,180/-,200/-",10
+Rice and Chicken Curry,300,Lunch,False,🍗,High Protein,620,70,canteen,300/-,11
+Rice and Veg Curry,200,Lunch,True,🍛,Vegetarian,620,87,canteen,200/-,12
+Rice and Fish Curry,250,Lunch,False,🐟,High Protein,620,86,canteen,250/-,13
+Rice and Beef Curry,300,Lunch,False,🥩,High Protein,620,83,canteen,300/-,14
+Chicken Briyani,350,Lunch,False,🍗,High Protein,620,85,canteen,350/-,15
+Beef Bariyani,400,Lunch,False,🥩,High Protein,620,90,canteen,400/-,16
+Egg Biriyani,300,Lunch,False,🥚,High Protein,620,87,canteen,300/-,17
+Fried Rice Chicken,350,Lunch,False,🍗,High Protein,620,87,canteen,350/-,18
+Fried Rice Beef,400,Lunch,False,🥩,High Protein,620,79,canteen,400/-,19
+Fried Rice Egg,300,Lunch,False,🥚,High Protein,620,89,canteen,300/-,20
+Fried Rice Veg,250,Lunch,True,🍛,Vegetarian,620,83,canteen,250/-,21
+Fried Rice Chicken,350,Dinner,False,🍗,High Protein,650,87,canteen,350/-,22
+Fried Rice Beef,400,Dinner,False,🥩,High Protein,650,79,canteen,400/-,23
+Fried Rice Egg,300,Dinner,False,🥚,High Protein,650,89,canteen,300/-,24
+Fried Rice Veg,250,Dinner,True,🍛,Vegetarian,650,83,canteen,250/-,25
+Chicken Kottu Rotti,350,Dinner,False,🍗,High Protein,650,86,canteen,350/-,26
+Breef Kottu Rotti,400,Dinner,True,🍗,Balanced,650,87,canteen,400/-,27
+Egg Kottu Rotti,300,Dinner,False,🍗,High Protein,650,88,canteen,300/-,28
+Chicken Kottu String Hoppers,350,Dinner,False,🍗,High Protein,650,74,canteen,350/-,29
+Beef Kottu String Hoppers,400,Dinner,False,🍗,High Protein,650,87,canteen,400/-,30
+Egg Kottu String Hoppers,300,Dinner,False,🍗,High Protein,650,76,canteen,300/-,31
+Special Dolphin Kottu,400,Dinner,,🍗,Balanced,650,76,canteen,400/,32
+Chicken Samosa,50,Dinner,False,🍗,High Protein,650,84,canteen,50/-,33
+Beef Samosa,50,Dinner,False,🥩,High Protein,650,76,canteen,50/-,34
+Veg Cutlet,40,Dinner,True,🥟,Vegetarian,650,72,canteen,40/-,35
+Fish Cutlet,50,Dinner,False,🐟,High Protein,650,71,canteen,50/-,36
+Beef Roll,50,Dinner,False,🥩,High Protein,650,83,canteen,50/-,37
+Chicken Roll,50,Dinner,False,🍗,High Protein,650,70,canteen,50/-,38
+Sandwich,150,Dinner,,🍞,Balanced,650,89,canteen,150/-,39
+Lemon,100,Beverage,True,🥤,Balanced,180,73,juice,100/-,40
+Papaya,150,Beverage,True,🥤,Balanced,180,86,juice,150/-,41
+Faluda,200,Beverage,True,🥤,Balanced,180,71,juice,200/-,42
+Avocado,180,Beverage,True,🥤,Balanced,180,78,juice,180/-,43
+Orange,150,Beverage,True,🥤,Balanced,180,86,juice,150/-,44
+Watermelon,150,Beverage,True,🥤,Balanced,180,74,juice,150/-,45
+Mix fruit,200,Beverage,True,🥤,Vegetarian,180,76,juice,200/-,46
+Mango,180,Beverage,True,🥤,Balanced,180,85,juice,180/-,47
+Wood Apple,150,Beverage,True,🥤,Balanced,180,85,juice,150-,48
+Ice Milo,200,Beverage,True,🥤,Balanced,180,83,juice,200/-,49
+Fruit Salad,250,Beverage,True,🥤,Vegetarian,180,80,juice,250/-,50
+Pineapple,150,Beverage,True,🥤,Balanced,180,72,juice,150/-,51
+Banana,150,Beverage,True,🥤,Balanced,180,80,juice,150/-,52
+Ice Cream,150,Beverage,True,🥤,Balanced,180,86,juice,150/-,53
+Lassi,150,Beverage,True,🥤,Balanced,180,74,juice,150/-,54
+Mojito,150,Beverage,True,🥤,Balanced,180,87,juice,150/-,55

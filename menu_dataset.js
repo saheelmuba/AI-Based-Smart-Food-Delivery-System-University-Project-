@@ -1,4 +1,4 @@
-[
+const MENU = [
   {
     "name": "chicken Rotti",
     "price": 100,
@@ -714,4 +714,4 @@
     "raw_price": "150/-",
     "id": 55
   }
-]
+];

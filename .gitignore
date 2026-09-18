@@ -1,13 +1,11 @@
-# Runtime / generated
-app_data.db
-uploads/*
-!uploads/.gitkeep
 __pycache__/
-*.pyc
+*.py[cod]
+*.pkl
+*.sqlite3
 .env
-.venv/
-venv/
-
-# Editor
+.env.*
+instance/
+.idea/
 .vscode/
 .DS_Store
+static/uploads/
